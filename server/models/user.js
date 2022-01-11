@@ -7,17 +7,17 @@ const userSchema = new Schema(
     name: {
       type: String,
       trim: true,
-      required,
+      required: true,
     },
     email: {
       type: String,
       trim: true,
-      required,
-      unique,
+      required: true,
+      unique: true,
     },
     password: {
       type: String,
-      required,
+      required: true,
       min: 6,
       max: 64,
     },
