@@ -1,4 +1,5 @@
 import { Menu } from "antd";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   AppstoreOutlined,
@@ -9,20 +10,34 @@ import {
 const { Item } = Menu;
 
 const TopNav = () => {
+  const [current, setCurrent] = useState("");
+
+  const setCurrentKey = (e) => {
+    setCurrent(e.key);
+  };
+
+  useEffect(() => {
+    process.browser && setCurrent(window.location.pathname);
+  }, [process.browser && window.location.pathname]);
+
   return (
     <>
-      <Menu mode="horizontal">
-        <Item icon={<AppstoreOutlined />}>
+      <Menu mode="horizontal" selectedKeys={[current]}>
+        <Item key="/" onClick={setCurrentKey} icon={<AppstoreOutlined />}>
           <Link href="/">
             <a>App</a>
           </Link>
         </Item>
-        <Item icon={<LoginOutlined />}>
+        <Item key="/login" onClick={setCurrentKey} icon={<LoginOutlined />}>
           <Link href="/login">
             <a>Login</a>
           </Link>
         </Item>
-        <Item icon={<UserAddOutlined />}>
+        <Item
+          key="/register"
+          onClick={setCurrentKey}
+          icon={<UserAddOutlined />}
+        >
           <Link href="/register">
             <a>Register</a>
           </Link>
