@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { SyncOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { Context } from "../context";
 
 const Login = () => {
@@ -10,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { state, dispatch } = useContext(Context);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +26,10 @@ const Login = () => {
         type: "LOGIN",
         payload: data,
       });
+
+      window.localStorage.setItem("user", JSON.stringify(data));
+
+      router.push("/");
 
       // setLoading(false);
     } catch (error) {
