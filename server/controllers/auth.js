@@ -30,7 +30,7 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = () => {
+export const login = async () => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).exec();
