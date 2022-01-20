@@ -5,7 +5,6 @@ import {
   AppstoreOutlined,
   CoffeeOutlined,
   LoginOutlined,
-  LogoutOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
 import { Context } from "../context";
