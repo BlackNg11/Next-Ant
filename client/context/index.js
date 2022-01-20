@@ -9,7 +9,7 @@ const Context = createContext();
 const rootReducer = (state, actions) => {
   switch (actions.type) {
     case "LOGIN":
-      return { ...state, user: action.payload };
+      return { ...state, user: actions.payload };
     case "LOGOUT":
       return { ...state, user: null };
 

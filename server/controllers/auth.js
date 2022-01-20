@@ -30,7 +30,7 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async () => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).exec();
@@ -39,18 +39,35 @@ export const login = async () => {
 
     const match = await comparePassword(password, user.password);
 
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+    if (match) {
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "7d",
+      });
+
+      user.password = undefined;
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        // secure: true,
+      });
+
+      return res.json(user);
+    }
+
+    return res.json({
+      message: "Err",
     });
+  } catch (error) {
+    return res.status(400).send("Error. Try again");
+  }
+};
 
-    user.password = undefined;
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      // secure: true,
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res.json({
+      message: "Sign out success",
     });
-
-    res.json(user);
   } catch (error) {
     return res.status(400).send("Error. Try again");
   }
