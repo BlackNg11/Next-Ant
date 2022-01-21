@@ -31,6 +31,7 @@ const Provider = ({ children }) => {
     });
   }, []);
 
+  //Run when send req
   axios.interceptors.response.use(
     function (response) {
       //any status code that lie within the range of 2xx cause this fun to trigger
