@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import csrf from "csurf";
 
 const morgan = require("morgan");
@@ -24,6 +25,7 @@ const app = express();
 //midd
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(morgan("dev"));
 
 //route
